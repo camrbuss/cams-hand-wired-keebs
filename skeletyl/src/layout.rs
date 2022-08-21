@@ -16,9 +16,9 @@ const A_LS: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
 });
-const L5_S: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
+const L3_S: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     timeout: 200,
-    hold: l(5),
+    hold: l(3),
     tap: k(S),
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
@@ -30,9 +30,9 @@ const D_LA: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
 });
-const L2_F: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
+const L1_F: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     timeout: 200,
-    hold: l(2),
+    hold: l(1),
     tap: k(F),
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
@@ -65,9 +65,9 @@ const Z_LC: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
 });
-const L4_C: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
+const L2_C: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     timeout: 200,
-    hold: l(4),
+    hold: l(2),
     tap: k(C),
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
@@ -79,16 +79,16 @@ const SM_R: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
 });
-const L7_S: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
+const L4_S: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     timeout: 200,
-    hold: l(7),
+    hold: l(4),
     tap: k(Space),
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
 });
-const L4_O: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
+const L2_O: Action<CustomActions> = Action::HoldTap(&HoldTapAction {
     timeout: 200,
-    hold: l(4),
+    hold: l(2),
     tap: k(Comma),
     config: HoldTapConfig::Default,
     tap_hold_interval: 0,
@@ -98,53 +98,47 @@ const CT_T: Action<CustomActions> =
     Action::MultipleKeyCodes(&[KeyCode::LCtrl, KeyCode::Tab].as_slice());
 const SC_T: Action<CustomActions> =
     Action::MultipleKeyCodes(&[KeyCode::LShift, KeyCode::LCtrl, KeyCode::Tab].as_slice());
+const CT_C: Action<CustomActions> =
+    Action::MultipleKeyCodes(&[KeyCode::LCtrl, KeyCode::C].as_slice());
+const CT_V: Action<CustomActions> =
+    Action::MultipleKeyCodes(&[KeyCode::LCtrl, KeyCode::V].as_slice());
+const SF_T: Action<CustomActions> =
+    Action::MultipleKeyCodes(&[KeyCode::LShift, KeyCode::Tab].as_slice());
 
 // TODO: fix chords to map to tab, escape, and enter
-pub const CHORDS: [keyberon::chording::ChordDef; 3] = [
-    ((0, 0), &[(0, 8), (1, 8)]),
-    ((0, 1), &[(0, 9), (1, 9)]),
-    ((0, 2), &[(0, 10), (1, 10)]),
+pub const CHORDS: [keyberon::chording::ChordDef; 6] = [
+    ((0, 12), &[(0, 8), (1, 8)]),   // Escape
+    ((1, 12), &[(0, 9), (1, 9)]),   // Tab
+    ((2, 12), &[(0, 10), (1, 10)]), // Enter
+    ((0, 12), &[(0, 12), (0, 13)]), // unused
+    ((1, 12), &[(1, 12), (1, 13)]), // unused
+    ((2, 12), &[(2, 12), (2, 13)]), // unused
 ];
 
-pub static LAYERS: keyberon::layout::Layers<12, 3, 8, CustomActions> = keyberon::layout::layout! {
+pub static LAYERS: keyberon::layout::Layers<14, 3, 5, CustomActions> = keyberon::layout::layout! {
     { // 0
-        [Q      W      E      R      T {SC_T} {BOOTLOAD}      Y U I      O      P]
-        [{A_LS} {L5_S} {D_LA} {L2_F} G BSpace {L7_S} H J K      L      {SM_R}]
-        [{Z_LC} {X_LA} {L4_C} V      B {CT_T} t      N M {L4_O} {DT_R} {SL_R}]
+        [Q      W      E      R      T {SC_T} {CT_C} Y U I      O      P      Escape t]
+        [{A_LS} {L3_S} {D_LA} {L1_F} G BSpace {L4_S} H J K      L      {SM_R} Tab    t]
+        [{Z_LC} {X_LA} {L2_C} V      B {CT_T} {CT_V} N M {L2_O} {DT_R} {SL_R} Enter  t]
     }
     { // 1
-        [t t t t t t t t t t t t]
-        [t t t t t t t t t t t t]
-        [t t t t t t t t t t t t]
+        [t t t t t t t * 7 8 9 + t t]
+        [t t t t t t 0 / 4 5 6 - t t]
+        [t t t t t t t . 1 2 3 . t t]
     }
     { // 2
-        [t t t t {BOOTLOAD} t t * 7 8 9 +]
-        [t t t t t          t 0 / 4 5 6 -]
-        [t t t t MediaSleep t t . 1 2 3 .]
+        [!   @   #   $   % t t t ~   |    '`' +     t t]
+        ['{' '}' '(' ')' t t t = '_' -    '"' Quote t t]
+        ['[' ']' ^   &   * t t t /   '\\' t   t     t t]
     }
     { // 3
-        [t 7 8 9 t t t t t t t t]
-        [t 4 5 6 t t t t t t t t]
-        [0 1 2 3 t t t t t t t t]
+        [t t t      t t t t t    {SF_T} PgUp   Tab   t     t t]
+        [t t Delete t t t t Left Down   Up     Right Enter t t]
+        [t t t      t t t t t    Home   PgDown End   t     t t]
     }
     { // 4
-        [!   @   #   $   % t t t ~   |    '`' +]
-        ['{' '}' '(' ')' t t t = '_' -    '"' Quote]
-        ['[' ']' ^   &   * t t t /   '\\' t   t]
-    }
-    { // 5
-        [t t t      t t t t t    t    PgUp   t     t]
-        [t t Delete t t t t Left Down Up     Right Enter]
-        [t t t      t t t t t    Home PgDown End   t]
-    }
-    { // 6
-        [{RESET} {BOOTLOAD} t t t T T F10 F7 F8 F9 MediaSleep]
-        [t       t          t t t t t F11 F4 F5 F6 t]
-        [t       t          t t t t t F12 F1 F2 F3 t]
-    }
-    { // 7
-        [t t     t   t      t t      t MediaNextSong MediaPlayPause MediaVolDown MediaVolUp PScreen]
-        [t Enter Tab Escape t Delete t t             Escape         Tab          Enter      Enter]
-        [t t     t   t      t t      t t             t              t            t          Delete]
+        [{BOOTLOAD} F7 F8 F9 F10 t      t MediaNextSong MediaPlayPause MediaVolDown MediaVolUp PScreen t t]
+        [{RESET}    F4 F5 F6 F11 Delete t t             Escape         Tab          Enter      Enter   t t]
+        [t          F1 F2 F3 F12 t      t MediaSleep    t              t            t          t       t t]
     }
 };

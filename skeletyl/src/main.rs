@@ -49,11 +49,11 @@ mod app {
     #[local]
     struct Local {
         watchdog: hal::watchdog::Watchdog,
-        chording: Chording<3>,
-        matrix: Matrix<DynPin, DynPin, 12, 3>,
-        debouncer: Debouncer<[[bool; 12]; 3]>,
+        chording: Chording<6>,
+        matrix: Matrix<DynPin, DynPin, 14, 3>,
+        debouncer: Debouncer<[[bool; 14]; 3]>,
         alarm: hal::timer::Alarm0,
-        layout: Layout<12, 3, 8, CustomActions>,
+        layout: Layout<14, 3, 5, CustomActions>,
     }
 
     #[init(local = [bus: Option<UsbBusAllocator<hal::usb::UsbBus>> = None])]
@@ -165,7 +165,7 @@ mod app {
             &mut resets,
         );
 
-        let matrix: Matrix<DynPin, DynPin, 12, 3> = Matrix::new(
+        let matrix: Matrix<DynPin, DynPin, 14, 3> = Matrix::new(
             [
                 pins.adc1.into_pull_up_input().into(),
                 pins.adc0.into_pull_up_input().into(),
@@ -179,6 +179,8 @@ mod app {
                 pins.tx0.into_pull_up_input().into(),
                 pins.rx0.into_pull_up_input().into(),
                 pins.gpio4.into_pull_up_input().into(),
+                pins.copi.into_pull_up_input().into(), // not wired
+                pins.ncs.into_pull_up_input().into(),  // not wired
             ],
             [
                 pins.rx1.into_push_pull_output().into(),
@@ -189,7 +191,7 @@ mod app {
         .unwrap();
 
         let layout = Layout::new(&crate::layout::LAYERS);
-        let debouncer = Debouncer::new([[false; 12]; 3], [[false; 12]; 3], 20);
+        let debouncer = Debouncer::new([[false; 14]; 3], [[false; 14]; 3], 20);
 
         let chording = Chording::new(&crate::layout::CHORDS);
 
