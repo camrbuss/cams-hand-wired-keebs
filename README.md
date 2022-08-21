@@ -10,6 +10,10 @@ Firmware and other artifacts of building hand wired keyboards
 [Design](https://github.com/peej/lumberjack-keyboard) by peej
 ![lumberjack](img/lumberjack.jpg)
 
+## Skeletyl
+[Design](https://github.com/Bastardkb/Skeletyl) by Bastardkb
+![skeletyl](img/skeletyl.jpg)
+
 ## Flashing
 ```
 cargo objcopy --release -- -O binary binary.bin

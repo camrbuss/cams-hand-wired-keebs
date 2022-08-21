@@ -1,0 +1,31 @@
+[package]
+name = "skeletyl-rp2040-keyberon"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+cortex-m = "0.7.2"
+cortex-m-rt = { version = "0.7", features = ["device"] }
+cortex-m-rtic = "1.1.3"
+embedded-time = "0.12.1"
+usb-device= "0.2.8"
+usbd-serial = "0.1.1"
+usbd-hid = "0.5.0"
+keyberon = { git = "https://github.com/TeXitoi/keyberon", rev = "29e960e7ca0a1f79196e441a4abd65a7d9f79ea5" }
+# keyberon = { path = "../../keyberon" }
+panic-halt= "0.2.0"
+embedded-hal ="0.2.5"
+rp2040-hal = { version = "0.5.0", features = ["rt"] }
+sparkfun-pro-micro-rp2040 = "0.3.1"
+
+[profile.dev]
+lto = true
+incremental = true
+opt-level = "z"
+debug = true
+
+[profile.release]
+lto = true
+incremental = false
+opt-level = "z"
+debug = false
