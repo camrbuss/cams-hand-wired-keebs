@@ -11,7 +11,7 @@ embedded-time = "0.12.1"
 usb-device= "0.2.8"
 usbd-serial = "0.1.1"
 usbd-hid = "0.5.0"
-keyberon = { git = "https://github.com/TeXitoi/keyberon", rev = "29e960e7ca0a1f79196e441a4abd65a7d9f79ea5" }
+keyberon = { git = "https://github.com/TeXitoi/keyberon", rev = "5d15f5cef3f7b6536f77f3587f32e5a636fcfbb0" }
 # keyberon = { path = "../../keyberon" }
 panic-halt= "0.2.0"
 embedded-hal ="0.2.5"

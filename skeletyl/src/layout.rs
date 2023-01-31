@@ -98,14 +98,9 @@ const CT_T: Action<CustomActions> =
     Action::MultipleKeyCodes(&[KeyCode::LCtrl, KeyCode::Tab].as_slice());
 const SC_T: Action<CustomActions> =
     Action::MultipleKeyCodes(&[KeyCode::LShift, KeyCode::LCtrl, KeyCode::Tab].as_slice());
-const CT_C: Action<CustomActions> =
-    Action::MultipleKeyCodes(&[KeyCode::LCtrl, KeyCode::C].as_slice());
-const CT_V: Action<CustomActions> =
-    Action::MultipleKeyCodes(&[KeyCode::LCtrl, KeyCode::V].as_slice());
 const SF_T: Action<CustomActions> =
     Action::MultipleKeyCodes(&[KeyCode::LShift, KeyCode::Tab].as_slice());
 
-// TODO: fix chords to map to tab, escape, and enter
 pub const CHORDS: [keyberon::chording::ChordDef; 6] = [
     ((0, 12), &[(0, 8), (1, 8)]),   // Escape
     ((1, 12), &[(0, 9), (1, 9)]),   // Tab
@@ -117,9 +112,9 @@ pub const CHORDS: [keyberon::chording::ChordDef; 6] = [
 
 pub static LAYERS: keyberon::layout::Layers<14, 3, 5, CustomActions> = keyberon::layout::layout! {
     { // 0
-        [Q      W      E      R      T {SC_T} {CT_C} Y U I      O      P      Escape t]
+        [Q      W      E      R      T {SC_T} LGui Y U I      O      P      Escape t]
         [{A_LS} {L3_S} {D_LA} {L1_F} G BSpace {L4_S} H J K      L      {SM_R} Tab    t]
-        [{Z_LC} {X_LA} {L2_C} V      B {CT_T} {CT_V} N M {L2_O} {DT_R} {SL_R} Enter  t]
+        [{Z_LC} {X_LA} {L2_C} V      B {CT_T} LAlt N M {L2_O} {DT_R} {SL_R} Enter  t]
     }
     { // 1
         [t t t t t t t * 7 8 9 + t t]

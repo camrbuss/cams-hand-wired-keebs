@@ -185,7 +185,7 @@ mod app {
             [
                 pins.rx1.into_push_pull_output().into(),
                 pins.gpio7.into_push_pull_output().into(),
-                pins.tx1.into_push_pull_output().into(),
+                pins.gpio3.into_push_pull_output().into(),
             ],
         )
         .unwrap();
