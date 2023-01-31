@@ -13,7 +13,7 @@ Firmware and other artifacts of building hand wired keyboards
 ## Skeletyl
 [Design](https://github.com/Bastardkb/Skeletyl) by Bastardkb
 ![skeletyl](img/skeletyl.jpg)
-![skeletyl](img/skeletyl_1_0.jpg)
+![skeletyl](img/skeletyl_1_0.JPG)
 
 ## Flashing
 ```
